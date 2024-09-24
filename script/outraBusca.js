@@ -1,5 +1,19 @@
+const aplicarMascaraCEP = (value) => {
+  value = value.replace(/\D/g, "");
+
+  if (value.length > 5) {
+    value = value.replace(/^(\d{5})(\d)/, "$1-$2");
+  }
+  return value;
+};
+
+const cepInput = document.getElementById("novoCepInput");
+cepInput.addEventListener("input", (event) => {
+  event.target.value = aplicarMascaraCEP(event.target.value);
+});
+
 function buscarCEP(cep) {
-  if (cep.length !== 8) {
+  if (cep.length !== 9) {
     alert("CEP inválido. Deve conter 8 dígitos.");
     return;
   }
@@ -32,17 +46,16 @@ function buscarCEP(cep) {
         "<p>Erro ao buscar o CEP. Tente novamente mais tarde.</p>";
     })
     .finally(() => {
-      loadingScreen.style.display = "none"; // Oculta o carregamento
+      loadingScreen.style.display = "none";
     });
 }
 
-// Insere o evento de clique no botão
 document.getElementById("novoBuscarBotao").addEventListener("click", () => {
   const novoCep = document.getElementById("novoCepInput").value;
   buscarCEP(novoCep);
 });
 
-// Busca o CEP da página anterior
+// busca o CEP da página anterior
 document.addEventListener("DOMContentLoaded", function () {
   const cepInicial = localStorage.getItem("cep");
   if (cepInicial) {
@@ -50,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Exibe o resultado salvo no localStorage (se houver)
+// mostra o resultado salvo no localStorage (se tiver)
 const resultado = localStorage.getItem("resultado");
 document.getElementById("resultado").innerHTML =
   resultado || "Nenhum resultado encontrado.";

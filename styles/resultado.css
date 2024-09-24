@@ -12,6 +12,10 @@ html {
 
 /*aqui comceça a parte do header*/
 
+#mapinhaHomeResult {
+  margin-bottom: 10px;
+}
+
 .containerHeader {
   max-width: 1200px;
   margin: auto;

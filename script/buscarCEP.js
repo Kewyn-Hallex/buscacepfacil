@@ -2,10 +2,23 @@ const cepInput = document.getElementById("floatingInput");
 const buscarBotao = document.getElementById("botaoBuscar");
 const loadingScreen = document.getElementById("loading");
 
+const aplicarMascaraCEP = (value) => {
+  value = value.replace(/\D/g, "");
+
+  if (value.length > 5) {
+    value = value.replace(/^(\d{5})(\d)/, "$1-$2");
+  }
+  return value;
+};
+
+cepInput.addEventListener("input", (event) => {
+  event.target.value = aplicarMascaraCEP(event.target.value);
+});
+
 buscarBotao.addEventListener("click", () => {
   const cep = cepInput.value;
 
-  if (cep.length !== 8) {
+  if (cep.length !== 9) {
     alert("CEP inválido. Deve conter 8 dígitos.");
     return;
   }
